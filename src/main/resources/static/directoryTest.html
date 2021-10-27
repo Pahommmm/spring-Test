@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="directoryDiv"></div>
+    <h1>see what will return in the top</h1>
+
+    <form id="myForm" action="/WeDontWantThis" method="get" onsubmit="return loadDirectory()">
+        <label>name:<input type="text" name="name"></label><br>
+        <label>num:<input type="text" name="num"></label><br>
+        <button type="submit">submit</button>
+    </form>
+
+    <script>
+        function loadDirectory() {
+
+            var name = document.forms["myForm"]["name"].value;
+            var num = document.forms["myForm"]["num"].value;
+            params = 'name=' + name + '&num=' + num;
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "/directory", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.onreadystatechange = function() {
+                if(xhttp.readyState === 4) {
+                    if(xhttp.status === 200) {
+                        var text = xhttp.responseText;
+                        document.getElementById("directoryDiv").innerHTML = text;
+                        console.log(params);
+
+                    }else {
+                        console.error(xhttp.statusText);
+                    }
+                }
+            };
+            xhttp.send(params);
+            return false;
+        }
+        loadDirectory();
+    </script>
+</body>
+</html>

@@ -12,7 +12,7 @@ public class FormController {
 
     ArrayList<NameForm> names = new ArrayList<NameForm>();
 
-    @RequestMapping(path = "processFormPostHTMLReturn", method = RequestMethod.POST)
+    @RequestMapping(path = "/processFormPostHTMLReturn", method = RequestMethod.POST)
     public String postFormProcessor(NameForm nameForm) {
         names.add(nameForm);
         NameForm.printArray(names);
